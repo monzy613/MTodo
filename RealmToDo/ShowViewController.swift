@@ -10,12 +10,17 @@ import UIKit
 
 class ShowViewController: UIViewController {
 
-    var content = Note()
+    var note = Note()
+    var previousContent = ""
+    var isModified = false
     @IBOutlet var contentTextView: UITextView!
+    @IBOutlet var titleTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = content.name
-        contentTextView.text = content.note
+        title = note.name
+        previousContent = note.note
+        contentTextView.text = note.note
+        titleTextField.text = note.name
         // Do any additional setup after loading the view.
     }
 
@@ -24,7 +29,24 @@ class ShowViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        do {
+            try uiRealm.write() {
+                let newNote = Note(value: ["name": self.titleTextField.text ?? self.note.name, "note": self.contentTextView.text])
+                uiRealm.delete(self.note)
+//                self.note.name = self.titleTextField.text ?? self.note.name
+//                self.note.note = self.contentTextView.text
+                uiRealm.add(newNote)
+            }
+        } catch {
+            print("error writing realm: \(error)")
+        }
+    }
+    
 
+    @IBAction func titleEdited(sender: UITextField) {
+        isModified = true
+    }
     /*
     // MARK: - Navigation
 

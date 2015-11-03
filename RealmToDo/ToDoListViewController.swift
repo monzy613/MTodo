@@ -7,21 +7,61 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class ToDoListViewController: UITableViewController {
     
+    var isAuthenticationSuccess = false
+    
     //Mark dataSource
     var list = [Note]()
+    var initList = [Note]()
     var currentNote = Note()
     
     //Mark tool functions
     private func reloadNoteList() {
+        initList.removeAll()
         list.removeAll()
         for note in uiRealm.objects(Note) {
-            list.append(note)
+            self.initList.append(note)
+            self.list.append(note)
         }
-        tableView.reloadData()
+        if isAuthenticationSuccess == false {
+            self.list = []
+        } else {
+            self.list = initList
+            self.tableView.reloadData()
+        }
     }
+    
+    func touchIdAuthentication(doAfterAuthentication: (Bool, NSError?) -> Void) {
+        let laContext = LAContext()
+        var error: NSError?
+        
+        if laContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &error) {
+            laContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "TouchID Authentication", reply: doAfterAuthentication)
+        } else {
+            print("device don't support touchId")
+        }
+    }
+    
+    func setAuthentication(doAfterAuthentication: (Bool, NSError?) -> Void) {
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        if userDefault.objectForKey("AuthenticationSwitch") == nil {
+            userDefault.setBool(false, forKey: "AuthenticationSwitch")
+            print("AuthenticationSwitch set")
+            isAuthenticationSuccess = true
+        } else {
+            if userDefault.boolForKey("AuthenticationSwitch") == true {
+                isAuthenticationSuccess = false
+                touchIdAuthentication(doAfterAuthentication)
+            } else {
+                isAuthenticationSuccess = true
+                reloadNoteList()
+            }
+        }
+    }
+    
     
     //Mark actions
     @IBAction func addItem(sender: UIBarButtonItem) {
@@ -29,15 +69,22 @@ class ToDoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        setAuthentication() {
+            isSuccess, error in
+            if isSuccess {
+                print("touchId authentication success")
+                self.isAuthenticationSuccess = true
+                self.list = self.initList
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                }
+            } else {
+                print("touchId authentication failed")
+            }
+        }
         print(NSSearchPathForDirectoriesInDomains(.DocumentationDirectory, .UserDomainMask, true)[0])
-        reloadNoteList()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+
     
     override func viewWillAppear(animated: Bool) {
         reloadNoteList()
@@ -65,8 +112,9 @@ class ToDoListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath)
         
         // Configure the cell...
-        cell.textLabel?.text = list[indexPath.row].name
-        cell.detailTextLabel?.text = list[indexPath.row].note
+        let index = list.count - indexPath.row - 1
+        cell.textLabel?.text = list[index].name
+        cell.detailTextLabel?.text = list[index].note
 
         return cell
     }
@@ -82,7 +130,7 @@ class ToDoListViewController: UITableViewController {
             switch identifier {
                 case "ShowNoteSegue":
                     let destViewController = segue.destinationViewController as! ShowViewController
-                    destViewController.content = currentNote
+                    destViewController.note = currentNote
                 break
             default: break
             }
