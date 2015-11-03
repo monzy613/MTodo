@@ -85,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ktj-uK-2Ha" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1952.5" y="485.5"/>
+            <point key="canvasLocation" x="1612.5" y="514.5"/>
         </scene>
         <!--Switch Test View Controller-->
         <scene sceneID="6nv-kK-jEG">
@@ -96,7 +96,7 @@
                         <viewControllerLayoutGuide type="bottom" id="QTz-N9-H7J"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fiK-vh-XuG">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K8s-7h-PnJ">
@@ -112,14 +112,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="switcher" destination="K8s-7h-PnJ" id="ffi-Dg-mxl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S3B-nT-nn8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1153" y="2070"/>
+            <point key="canvasLocation" x="761.5" y="1294.5"/>
         </scene>
         <!--Note-->
         <scene sceneID="nyZ-4s-EKB">
@@ -253,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAR-I0-DgS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769.5" y="1324.5"/>
+            <point key="canvasLocation" x="761.5" y="514.5"/>
         </scene>
         <!--Show View Controller-->
         <scene sceneID="QYS-I6-ljZ">
@@ -315,16 +315,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGf-sl-sZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1180.5" y="1341.5"/>
+            <point key="canvasLocation" x="1190.5" y="1294.5"/>
+        </scene>
+        <!--Test Text View View Controller-->
+        <scene sceneID="PJv-eS-sw6">
+            <objects>
+                <viewController id="aZT-7s-5bv" customClass="TestTextViewViewController" customModule="RealmToDo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Raj-I4-dkc"/>
+                        <viewControllerLayoutGuide type="bottom" id="Etr-57-gz9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZNn-nW-Yk5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GBw-hZ-iWY">
+                                <rect key="frame" x="139" y="186" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jR2-h4-xuJ">
+                                <rect key="frame" x="67" y="281" width="240" height="128"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="textField" destination="GBw-hZ-iWY" id="1gc-Ne-WHp"/>
+                        <outlet property="textView" destination="jR2-h4-xuJ" id="8Wl-fx-KdB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zkp-gN-1BK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1612.5" y="1294.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FZs-cm-9Os">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FhE-nZ-cps" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qrE-S1-96c">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -333,7 +374,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Npy-8G-E7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="266" y="486"/>
+            <point key="canvasLocation" x="1190.5" y="-249.5"/>
         </scene>
     </scenes>
 </document>

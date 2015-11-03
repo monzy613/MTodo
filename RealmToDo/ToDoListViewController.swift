@@ -77,13 +77,10 @@ class ToDoListViewController: UITableViewController {
                     case .SystemCancel:
                         print("Systen cancel the touchId authentication")
                         break
-                    case .TouchIDNotAvailable:
-                        print("touchid not available in this device")
-                        break
                     case .AuthenticationFailed:
                         AuthenticationSetter.showTextAlert(self, title: "Authentication Failed", detail: "Wrong fingerprint", onPressCancel: {})
                         break
-                    case .UserFallback:
+                    case .UserFallback, .TouchIDNotAvailable, .TouchIDNotEnrolled:
                         AuthenticationSetter.showPasswordAlert(self,
                             onSuccess: {
                                 self.isAuthenticationSuccess = true

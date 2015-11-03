@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShowViewController: UIViewController {
+class ShowViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     var note = Note()
     var previousContent = ""
@@ -19,6 +19,8 @@ class ShowViewController: UIViewController {
         super.viewDidLoad()
         title = note.title
         previousContent = note.content
+        contentTextView.delegate = self
+        titleTextField.delegate = self
         contentTextView.text = note.content
         titleTextField.text = note.title
         // Do any additional setup after loading the view.
@@ -29,7 +31,19 @@ class ShowViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func textFieldDidBeginEditing(textField: UITextField) {
+        isModified = true
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        isModified = true
+    }
+    
     override func viewWillDisappear(animated: Bool) {
+        if isModified == false {
+            print("note not modified")
+            return
+        }
         do {
             try uiRealm.write() {
                 self.note.title = self.titleTextField.text ?? self.note.title

@@ -97,7 +97,6 @@ class SettingViewController: UIViewController {
                 if isSuccess == true {
                     AuthenticationSetter.setAuthenticationSwitchUserDefault(false)
                 } else {
-                    sender.setOn(true, animated: true)
                     if let laError = error as? LAError {
                         print("error happened in authenticating: \(laError)")
                         switch laError {
@@ -111,11 +110,20 @@ class SettingViewController: UIViewController {
                             break
                         case .UserCancel:
                             print("User Cancel")
-                            dispatch_async(dispatch_get_main_queue()) {
-                                self.touchIdSwitch.setOn(self.touchIdSwitch.on, animated: false)
-                            }
+                            self.touchIdSwitch.setOn(self.touchIdSwitch.on, animated: false)
+                            break
+                        case .UserFallback, .TouchIDNotAvailable, .TouchIDNotEnrolled:
+                            AuthenticationSetter.showPasswordAlert(self,
+                            onSuccess: {
+                                AuthenticationSetter.setAuthenticationSwitchUserDefault(false)
+                                AuthenticationSetter.showTextAlert(self, title: "TouchId Closed", detail: "touchid authentication closed", onPressCancel: {})
+                            },
+                            onFail: {
+                                AuthenticationSetter.showTextAlert(self, title: "Wrong Password", detail: "old password is incorrect", onPressCancel: {self.view.endEditing(true)})
+                            })
                             break
                         default:
+                            sender.setOn(true, animated: true)
                             break
                         }
                     } else {
@@ -126,6 +134,7 @@ class SettingViewController: UIViewController {
         } else {
             AuthenticationSetter.setAuthenticationSwitchUserDefault(true)
         }
+        self.view.endEditing(true)
     }
     
     
