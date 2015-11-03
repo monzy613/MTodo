@@ -52,7 +52,7 @@ class MZToastView: UIView {
         super.init(frame: frame)
     }
     
-    
+
     func configure(superView: UIView, content: String, position: MZToastPosition, length: MZToastLength, lightMode: MZDisplayMode) -> MZToastView {
         superView.addSubview(self)
         mzPosition = position
@@ -95,6 +95,49 @@ class MZToastView: UIView {
         }
         return self
     }
+
+/*
+    func configure(superView: UIView, content: String, position: MZToastPosition, length: MZToastLength, lightMode: MZDisplayMode) -> MZToastView {
+        superView.addSubview(self)
+        mzPosition = position
+        mzLength = length
+        mzDisplayMode = lightMode
+        let screenBounds = UIScreen.mainScreen().bounds
+        switch lightMode {
+        case .Dark:
+            self.backgroundColor = UIColor.darkGrayColor()
+            break
+        case .Light:
+            self.backgroundColor = UIColor.lightGrayColor()
+            break
+        }
+        
+        let midX = screenBounds.width / 2
+        let midY = screenBounds.height / 2
+        let toastWidth = screenBounds.width * widthPercent
+        self.layer.cornerRadius = toastWidth / 50
+        self.layer.masksToBounds = true
+        self.alpha = 0
+        let toastHeight = toastWidth / ratio
+        let startX = midX - toastWidth / 2
+        var startY: CGFloat = 0
+        var frame: CGRect
+        switch position {
+        case .High:
+            startY = screenBounds.height * highOffset
+            break
+        case .Middle:
+            startY = midY - toastHeight / 2
+            break
+        case .Low:
+            startY = screenBounds.height * lowOffset
+            break
+        }
+        frame = CGRect(x: startX, y: startY, width: toastWidth, height: toastHeight)
+        self.frame = frame
+        return configLabel(content, lightMode: lightMode)
+    }
+*/
     
     private func configLabel(content: String, lightMode: MZDisplayMode) -> MZToastView {
         self.addSubview(contentLabel)

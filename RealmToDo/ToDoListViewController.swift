@@ -59,7 +59,7 @@ class ToDoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("self.view.superview: \(self.view.superview)")
+        print("self.view.navigationView: \(self.navigationController?.view)")
         setAuthentication() {
             isSuccess, error in
             if isSuccess {
@@ -67,7 +67,7 @@ class ToDoListViewController: UITableViewController {
                 self.isAuthenticationSuccess = true
                 self.list = self.initList
                 dispatch_async(dispatch_get_main_queue()) {
-                    MZToastView().configure(self.view, content: "success", position: .Middle, length: .Short, lightMode: .Dark).show()
+                    MZToastView().configure((self.navigationController?.view)!, content: "success", position: .Middle, length: .Short, lightMode: .Dark).show()
                     self.tableView.reloadData()
                 }
             } else {
@@ -80,7 +80,7 @@ class ToDoListViewController: UITableViewController {
                         print("Systen cancel the touchId authentication")
                         break
                     case .AuthenticationFailed:
-                        MZToastView().configure(self.view, content: "Wrong finderprint", position: .Middle, length: .Short, lightMode: .Dark).show()
+                        MZToastView().configure((self.navigationController?.view)!, content: "Wrong finderprint", position: .Middle, length: .Short, lightMode: .Dark).show()
                         break
                     case .UserFallback, .TouchIDNotAvailable, .TouchIDNotEnrolled:
                         AuthenticationSetter.showPasswordAlert(self,
@@ -90,7 +90,7 @@ class ToDoListViewController: UITableViewController {
                                 self.tableView.reloadData()
                             },
                             onFail: {
-                                MZToastView().configure(self.view, content: "Wrong password", position: .Middle, length: .Short, lightMode: .Dark).show()
+                                MZToastView().configure((self.navigationController?.view)!, content: "Wrong password", position: .Middle, length: .Short, lightMode: .Dark).show()
                             }
                         )
                         break
