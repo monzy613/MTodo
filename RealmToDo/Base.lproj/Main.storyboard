@@ -119,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S3B-nT-nn8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="910" y="732"/>
+            <point key="canvasLocation" x="1153" y="2070"/>
         </scene>
         <!--Note-->
         <scene sceneID="nyZ-4s-EKB">
@@ -161,7 +161,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Note" id="DcE-eX-AwC">
-                        <barButtonItem key="leftBarButtonItem" image="gear_16px_1149221_easyicon.net" id="8ra-lO-yNU">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="action" id="8ra-lO-yNU">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="EqR-Tm-57X" kind="presentation" modalTransitionStyle="coverVertical" id="JDy-zM-i8q"/>
@@ -182,7 +182,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sGL-lD-s3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1180.5" y="514.5"/>
+            <point key="canvasLocation" x="1190.5" y="514.5"/>
         </scene>
         <!--Setting-->
         <scene sceneID="Ng3-QA-CGM">
@@ -215,20 +215,39 @@
                                     <action selector="backToMain:" destination="EqR-Tm-57X" eventType="touchUpInside" id="nzF-TB-Gbk"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbS-dx-BxT">
+                                <rect key="frame" x="127" y="427" width="121" height="30"/>
+                                <state key="normal" title="change password"/>
+                                <connections>
+                                    <action selector="changePassword:" destination="EqR-Tm-57X" eventType="touchUpInside" id="QMJ-9c-LTw"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-nP-wFi">
+                                <rect key="frame" x="108" y="389" width="158" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="n8F-nP-wFi" firstAttribute="centerX" secondItem="dDH-8r-dsI" secondAttribute="centerX" id="17v-RS-lid"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="n8F-nP-wFi" secondAttribute="trailing" constant="93" id="5RW-ow-nBF"/>
                             <constraint firstItem="h9q-N9-gB6" firstAttribute="centerX" secondItem="gHV-Z4-1gn" secondAttribute="centerX" id="9W0-U3-K7S"/>
+                            <constraint firstItem="nbS-dx-BxT" firstAttribute="centerX" secondItem="n8F-nP-wFi" secondAttribute="centerX" id="CHj-m0-k7i"/>
                             <constraint firstItem="h9q-N9-gB6" firstAttribute="centerY" secondItem="gHV-Z4-1gn" secondAttribute="centerY" id="Gnl-aL-YW8"/>
                             <constraint firstItem="dDH-8r-dsI" firstAttribute="top" secondItem="h9q-N9-gB6" secondAttribute="bottom" constant="8" id="LXd-aq-xuQ"/>
                             <constraint firstItem="47O-OS-hZB" firstAttribute="top" secondItem="htm-CU-37P" secondAttribute="bottom" constant="8" id="S71-OT-hEh"/>
                             <constraint firstItem="dDH-8r-dsI" firstAttribute="centerX" secondItem="h9q-N9-gB6" secondAttribute="centerX" id="Ww9-aT-HHh"/>
+                            <constraint firstItem="n8F-nP-wFi" firstAttribute="top" secondItem="dDH-8r-dsI" secondAttribute="bottom" constant="8" id="Zhd-vm-YWN"/>
+                            <constraint firstItem="nbS-dx-BxT" firstAttribute="top" secondItem="n8F-nP-wFi" secondAttribute="bottom" constant="8" id="hGE-Pk-y82"/>
                             <constraint firstItem="htm-CU-37P" firstAttribute="centerX" secondItem="gHV-Z4-1gn" secondAttribute="centerX" id="vp3-JP-DVs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LRu-6t-vLh"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="changePasswordButton" destination="nbS-dx-BxT" id="4wo-bC-MJI"/>
+                        <outlet property="passwordField" destination="n8F-nP-wFi" id="12E-7l-NxF"/>
                         <outlet property="touchIdSwitch" destination="h9q-N9-gB6" id="Dql-Hl-XSu"/>
                     </connections>
                 </viewController>
@@ -314,10 +333,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Npy-8G-E7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="490" y="486"/>
+            <point key="canvasLocation" x="266" y="486"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="gear_16px_1149221_easyicon.net" width="16" height="16"/>
-    </resources>
 </document>

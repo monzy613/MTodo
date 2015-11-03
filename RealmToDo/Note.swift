@@ -9,14 +9,9 @@
 import RealmSwift
 
 class Note: Object {
-//    dynamic var id = 0
-    dynamic var name = ""
+    dynamic var title = ""
     dynamic var createdAt = ""
-    dynamic var note = ""
-//    
-//    override class func primaryKey() -> String? {
-//        return "id"
-//    }
+    dynamic var content = ""
 // Specify properties to ignore (Realm won't persist these)
     
 //  override static func ignoredProperties() -> [String] {

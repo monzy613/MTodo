@@ -34,16 +34,6 @@ class ToDoListViewController: UITableViewController {
         }
     }
     
-    func touchIdAuthentication(doAfterAuthentication: (Bool, NSError?) -> Void) {
-        let laContext = LAContext()
-        var error: NSError?
-        
-        if laContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &error) {
-            laContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "TouchID Authentication", reply: doAfterAuthentication)
-        } else {
-            print("device don't support touchId")
-        }
-    }
     
     func setAuthentication(doAfterAuthentication: (Bool, NSError?) -> Void) {
         let userDefault = NSUserDefaults.standardUserDefaults()
@@ -54,7 +44,7 @@ class ToDoListViewController: UITableViewController {
         } else {
             if userDefault.boolForKey("AuthenticationSwitch") == true {
                 isAuthenticationSuccess = false
-                touchIdAuthentication(doAfterAuthentication)
+                AuthenticationSetter.touchIdAuthentication(doAfterAuthentication)
             } else {
                 isAuthenticationSuccess = true
                 reloadNoteList()
@@ -79,7 +69,36 @@ class ToDoListViewController: UITableViewController {
                     self.tableView.reloadData()
                 }
             } else {
-                print("touchId authentication failed")
+                dispatch_async(dispatch_get_main_queue()) {
+                    switch error as! LAError {
+                    case .UserCancel:
+                        print("User Cancel")
+                        break
+                    case .SystemCancel:
+                        print("Systen cancel the touchId authentication")
+                        break
+                    case .TouchIDNotAvailable:
+                        print("touchid not available in this device")
+                        break
+                    case .AuthenticationFailed:
+                        AuthenticationSetter.showTextAlert(self, title: "Authentication Failed", detail: "Wrong fingerprint", onPressCancel: {})
+                        break
+                    case .UserFallback:
+                        AuthenticationSetter.showPasswordAlert(self,
+                            onSuccess: {
+                                self.isAuthenticationSuccess = true
+                                self.list = self.initList
+                                self.tableView.reloadData()
+                            },
+                            onFail: {
+                                AuthenticationSetter.showTextAlert(self, title: "Wrong password", detail: "password incorrect", onPressCancel: {})
+                            }
+                        )
+                        break
+                    default:
+                        break
+                    }
+                }
             }
         }
         print(NSSearchPathForDirectoriesInDomains(.DocumentationDirectory, .UserDomainMask, true)[0])
@@ -113,16 +132,28 @@ class ToDoListViewController: UITableViewController {
         
         // Configure the cell...
         let index = list.count - indexPath.row - 1
-        cell.textLabel?.text = list[index].name
-        cell.detailTextLabel?.text = list[index].note
+        let title = list[index].title
+        let content = list[index].content
+        if title == "" {
+            cell.textLabel?.text = "no title"
+        } else {
+            cell.textLabel?.text = title
+        }
+        
+        if content == "" {
+            cell.detailTextLabel!.text = "no content"
+        } else {
+            cell.detailTextLabel!.text = content
+        }
 
         return cell
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        currentNote = list[indexPath.row]
+        let index = list.count - indexPath.row - 1
+        currentNote = list[index]
         performSegueWithIdentifier("ShowNoteSegue", sender: self)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

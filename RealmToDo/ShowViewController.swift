@@ -17,10 +17,10 @@ class ShowViewController: UIViewController {
     @IBOutlet var titleTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = note.name
-        previousContent = note.note
-        contentTextView.text = note.note
-        titleTextField.text = note.name
+        title = note.title
+        previousContent = note.content
+        contentTextView.text = note.content
+        titleTextField.text = note.title
         // Do any additional setup after loading the view.
     }
 
@@ -32,11 +32,8 @@ class ShowViewController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         do {
             try uiRealm.write() {
-                let newNote = Note(value: ["name": self.titleTextField.text ?? self.note.name, "note": self.contentTextView.text])
-                uiRealm.delete(self.note)
-//                self.note.name = self.titleTextField.text ?? self.note.name
-//                self.note.note = self.contentTextView.text
-                uiRealm.add(newNote)
+                self.note.title = self.titleTextField.text ?? self.note.title
+                self.note.content = self.contentTextView.text
             }
         } catch {
             print("error writing realm: \(error)")

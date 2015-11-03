@@ -12,6 +12,8 @@ import LocalAuthentication
 class SettingViewController: UIViewController {
 
     @IBOutlet var touchIdSwitch: UISwitch!
+    @IBOutlet var passwordField: UITextField!
+    @IBOutlet var changePasswordButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         print("switcher state: \(touchIdSwitch.on)")
@@ -39,6 +41,54 @@ class SettingViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
+    @IBAction func changePassword(sender: UIButton) {
+        
+        if let password = passwordField.text {
+            if password == "" {
+                AuthenticationSetter.showTextAlert(self, title: "New Password invalid", detail: "new password should not be empty", onPressCancel: {self.view.endEditing(true)})
+                return
+            }
+        } else {
+            AuthenticationSetter.showTextAlert(self, title: "New Password invalid", detail: "new password should not be empty", onPressCancel: {self.view.endEditing(true)})
+            return
+        }
+        let password = passwordField.text ?? ""
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        if userDefault.stringForKey("Password") == nil {
+            self.passwordSetSuccess(password)
+        } else {
+            AuthenticationSetter.touchIdAuthentication() {
+                isSuccess, error in
+                if isSuccess == true {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.passwordSetSuccess(password)
+                    }
+                } else {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        AuthenticationSetter.showPasswordAlert(self,
+                            onSuccess: {
+                                self.passwordSetSuccess(password)
+                            },
+                            onFail: {
+                                AuthenticationSetter.showTextAlert(self, title: "Wrong Password", detail: "old password is incorrect", onPressCancel: {self.view.endEditing(true)})
+                            })
+                    }
+                }
+            }
+        }
+        self.view.endEditing(true)
+    }
+    
+    private func passwordSetSuccess(password: String) {
+        AuthenticationSetter.setPassword(password)
+        AuthenticationSetter.setAuthenticationSwitchUserDefault(true)
+        if touchIdSwitch.on == false {
+            touchIdSwitch.setOn(self.touchIdSwitch.on, animated: false)
+        }
+        AuthenticationSetter.showTextAlert(self, title: "Success", detail: "Password change success", onPressCancel: {self.view.endEditing(true)})
+    }
+    
+    
     @IBAction func swichTouchIdState(sender: UISwitch) {
         print("newState:\(sender.on)")
         if sender.on == false {
@@ -48,35 +98,42 @@ class SettingViewController: UIViewController {
                     AuthenticationSetter.setAuthenticationSwitchUserDefault(false)
                 } else {
                     sender.setOn(true, animated: true)
-                }
-                if let laError = error as? LAError {
-                    print("error happened in authenticating: \(laError)")
-                    switch laError {
-                    case .AppCancel:
-                        print("App Cancel")
-                        self.touchIdSwitch.setOn(true, animated: true)
-                        break
-                    case .SystemCancel:
-                        print("System Cancel")
-                        self.touchIdSwitch.setOn(true, animated: true)
-                        break
-                    case .UserCancel:
-                        print("User Cancel")
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.touchIdSwitch.setOn(self.touchIdSwitch.on, animated: false)
+                    if let laError = error as? LAError {
+                        print("error happened in authenticating: \(laError)")
+                        switch laError {
+                        case .AppCancel:
+                            print("App Cancel")
+                            self.touchIdSwitch.setOn(true, animated: true)
+                            break
+                        case .SystemCancel:
+                            print("System Cancel")
+                            self.touchIdSwitch.setOn(true, animated: true)
+                            break
+                        case .UserCancel:
+                            print("User Cancel")
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.touchIdSwitch.setOn(self.touchIdSwitch.on, animated: false)
+                            }
+                            break
+                        default:
+                            break
                         }
-                        break
-                    default:
-                        break
+                    } else {
+                        print("no error")
                     }
-                } else {
-                    print("no error")
                 }
             }
         } else {
             AuthenticationSetter.setAuthenticationSwitchUserDefault(true)
         }
     }
+    
+    
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     /*
     // MARK: - Navigation
 

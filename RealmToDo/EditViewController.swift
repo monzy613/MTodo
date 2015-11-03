@@ -34,9 +34,9 @@ class EditViewController: UIViewController {
         
         let note = Note(value: [titleTextField.text, "now", contentTextView.text])
         if contentTextView.text != "" && titleTextField.text == "" {
-            note.name = "no title"
+            note.title = ""
         } else if contentTextView.text == "" && titleTextField.text != ""{
-            note.note = "no content"
+            note.content = ""
         }
         do {
             try uiRealm.write(){
