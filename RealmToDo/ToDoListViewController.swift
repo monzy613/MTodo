@@ -59,6 +59,7 @@ class ToDoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("self.view.superview: \(self.view.superview)")
         setAuthentication() {
             isSuccess, error in
             if isSuccess {
@@ -66,6 +67,7 @@ class ToDoListViewController: UITableViewController {
                 self.isAuthenticationSuccess = true
                 self.list = self.initList
                 dispatch_async(dispatch_get_main_queue()) {
+                    MZToastView().configure(self.view, content: "success", position: .Middle, length: .Short, lightMode: .Dark).show()
                     self.tableView.reloadData()
                 }
             } else {
@@ -78,7 +80,7 @@ class ToDoListViewController: UITableViewController {
                         print("Systen cancel the touchId authentication")
                         break
                     case .AuthenticationFailed:
-                        AuthenticationSetter.showTextAlert(self, title: "Authentication Failed", detail: "Wrong fingerprint", onPressCancel: {})
+                        MZToastView().configure(self.view, content: "Wrong finderprint", position: .Middle, length: .Short, lightMode: .Dark).show()
                         break
                     case .UserFallback, .TouchIDNotAvailable, .TouchIDNotEnrolled:
                         AuthenticationSetter.showPasswordAlert(self,
@@ -88,7 +90,7 @@ class ToDoListViewController: UITableViewController {
                                 self.tableView.reloadData()
                             },
                             onFail: {
-                                AuthenticationSetter.showTextAlert(self, title: "Wrong password", detail: "password incorrect", onPressCancel: {})
+                                MZToastView().configure(self.view, content: "Wrong password", position: .Middle, length: .Short, lightMode: .Dark).show()
                             }
                         )
                         break

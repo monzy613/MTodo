@@ -22,6 +22,7 @@
 		184D97F41BE75B8800725BF0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97F31BE75B8800725BF0 /* SettingViewController.swift */; };
 		184D97F61BE7B64E00725BF0 /* AuthenticationSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97F51BE7B64E00725BF0 /* AuthenticationSetter.swift */; };
 		184D97F91BE7C2FA00725BF0 /* SwitchTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97F81BE7C2FA00725BF0 /* SwitchTestViewController.swift */; };
+		18B31A8C1BE903FA004FF02A /* MZToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B31A8B1BE903FA004FF02A /* MZToastView.swift */; };
 		18DA25CA1BE8A42500AA3007 /* TestTextViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DA25C91BE8A42500AA3007 /* TestTextViewViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		184D97F51BE7B64E00725BF0 /* AuthenticationSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationSetter.swift; sourceTree = "<group>"; };
 		184D97F71BE7BDC500725BF0 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		184D97F81BE7C2FA00725BF0 /* SwitchTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTestViewController.swift; sourceTree = "<group>"; };
+		18B31A8B1BE903FA004FF02A /* MZToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MZToastView.swift; sourceTree = "<group>"; };
 		18DA25C91BE8A42500AA3007 /* TestTextViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTextViewViewController.swift; sourceTree = "<group>"; };
 		28F38269FB035F03EDEDEED3 /* Pods-RealmToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmToDo.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmToDo/Pods-RealmToDo.release.xcconfig"; sourceTree = "<group>"; };
 		2C4C52FD1C13553F1D83DF5B /* Pods_RealmToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,7 @@
 				184D97EF1BE7239300725BF0 /* ShowViewController.swift */,
 				184D97F31BE75B8800725BF0 /* SettingViewController.swift */,
 				184D97F51BE7B64E00725BF0 /* AuthenticationSetter.swift */,
+				18B31A8B1BE903FA004FF02A /* MZToastView.swift */,
 				181278361BE6EE67002B8520 /* Main.storyboard */,
 				184D97F81BE7C2FA00725BF0 /* SwitchTestViewController.swift */,
 				18DA25C91BE8A42500AA3007 /* TestTextViewViewController.swift */,
@@ -317,6 +320,7 @@
 				184D97E81BE70F5C00725BF0 /* EditViewController.swift in Sources */,
 				184D97F91BE7C2FA00725BF0 /* SwitchTestViewController.swift in Sources */,
 				1812783B1BE6EE67002B8520 /* RealmToDo.xcdatamodeld in Sources */,
+				18B31A8C1BE903FA004FF02A /* MZToastView.swift in Sources */,
 				184D97F61BE7B64E00725BF0 /* AuthenticationSetter.swift in Sources */,
 				1819EC631BE70A2B0068EE84 /* ToDoListViewController.swift in Sources */,
 				184D97F41BE75B8800725BF0 /* SettingViewController.swift in Sources */,
