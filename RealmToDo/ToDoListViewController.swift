@@ -36,7 +36,11 @@ class ToDoListViewController: UITableViewController {
     }
     
     
-    func setAuthentication(doAfterAuthentication: (Bool, NSError?) -> Void) {
+    func setAuthentication() {
+        if isAuthenticationSuccess == true {
+            stopRefreshing()
+            return
+        }
         let userDefault = NSUserDefaults.standardUserDefaults()
         if userDefault.objectForKey("AuthenticationSwitch") == nil {
             userDefault.setBool(false, forKey: "AuthenticationSwitch")
@@ -45,11 +49,58 @@ class ToDoListViewController: UITableViewController {
         } else {
             if userDefault.boolForKey("AuthenticationSwitch") == true {
                 isAuthenticationSuccess = false
-                AuthenticationSetter.touchIdAuthentication(doAfterAuthentication)
+                AuthenticationSetter.touchIdAuthentication(){
+                    isSuccess, error in
+                    if isSuccess {
+                        print("touchId authentication success")
+                        self.isAuthenticationSuccess = true
+                        self.list = self.initList
+                        dispatch_async(dispatch_get_main_queue()) {
+                            MZToastView().configure((self.revealViewController().view)!, content: "success", position: .Middle, length: .Short, lightMode: .Dark).show()
+                            self.tableView.reloadData()
+                        }
+                    } else {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            switch error as! LAError {
+                            case .UserCancel:
+                                print("User Cancel")
+                                break
+                            case .SystemCancel:
+                                print("Systen cancel the touchId authentication")
+                                break
+                            case .AuthenticationFailed:
+                                MZToastView().configure((self.revealViewController().view)!, content: "Wrong finderprint", position: .Middle, length: .Short, lightMode: .Dark).show()
+                                break
+                            case .UserFallback, .TouchIDNotAvailable, .TouchIDNotEnrolled:
+                                AuthenticationSetter.showPasswordAlert(self,
+                                    onSuccess: {
+                                        MZToastView().configure((self.revealViewController().view)!, content: "success", position: .Middle, length: .Short, lightMode: .Dark).show()
+                                        self.isAuthenticationSuccess = true
+                                        self.list = self.initList
+                                        self.tableView.reloadData()
+                                    },
+                                    onFail: {
+                                        MZToastView().configure((self.revealViewController().view)!, content: "Wrong password", position: .Middle, length: .Short, lightMode: .Dark).show()
+                                    }
+                                )
+                                break
+                            default:
+                                break
+                            }
+                        }
+                    }
+                }
             } else {
                 isAuthenticationSuccess = true
                 reloadNoteList()
             }
+        }
+        stopRefreshing()
+    }
+    
+    private func stopRefreshing() {
+        if self.refreshControl?.refreshing == true {
+            self.refreshControl?.endRefreshing()
         }
     }
     
@@ -65,48 +116,8 @@ class ToDoListViewController: UITableViewController {
             menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        print("self.view.navigationView: \(self.navigationController?.view)")
-        setAuthentication() {
-            isSuccess, error in
-            if isSuccess {
-                print("touchId authentication success")
-                self.isAuthenticationSuccess = true
-                self.list = self.initList
-                dispatch_async(dispatch_get_main_queue()) {
-                    MZToastView().configure((self.revealViewController().view)!, content: "success", position: .Middle, length: .Short, lightMode: .Dark).show()
-                    self.tableView.reloadData()
-                }
-            } else {
-                dispatch_async(dispatch_get_main_queue()) {
-                    switch error as! LAError {
-                    case .UserCancel:
-                        print("User Cancel")
-                        break
-                    case .SystemCancel:
-                        print("Systen cancel the touchId authentication")
-                        break
-                    case .AuthenticationFailed:
-                        MZToastView().configure((self.revealViewController().view)!, content: "Wrong finderprint", position: .Middle, length: .Short, lightMode: .Dark).show()
-                        break
-                    case .UserFallback, .TouchIDNotAvailable, .TouchIDNotEnrolled:
-                        AuthenticationSetter.showPasswordAlert(self,
-                            onSuccess: {
-                                MZToastView().configure((self.revealViewController().view)!, content: "success", position: .Middle, length: .Short, lightMode: .Dark).show()
-                                self.isAuthenticationSuccess = true
-                                self.list = self.initList
-                                self.tableView.reloadData()
-                            },
-                            onFail: {
-                                MZToastView().configure((self.revealViewController().view)!, content: "Wrong password", position: .Middle, length: .Short, lightMode: .Dark).show()
-                            }
-                        )
-                        break
-                    default:
-                        break
-                    }
-                }
-            }
-        }
+        self.refreshControl?.addTarget(self, action: "setAuthentication", forControlEvents: .ValueChanged)
+        setAuthentication()
         print(NSSearchPathForDirectoriesInDomains(.DocumentationDirectory, .UserDomainMask, true)[0])
     }
 
