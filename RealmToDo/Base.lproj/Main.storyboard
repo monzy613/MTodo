@@ -150,7 +150,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Note" id="DcE-eX-AwC">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="action" id="8ra-lO-yNU">
+                        <barButtonItem key="leftBarButtonItem" image="icon-hamburger" style="plain" id="8ra-lO-yNU">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="fym-c8-hwi">
@@ -267,7 +267,7 @@
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QmX-0v-JFO" firstAttribute="top" secondItem="f0F-S8-76F" secondAttribute="bottom" constant="2" id="9rx-Pp-zsB"/>
                             <constraint firstItem="QmX-0v-JFO" firstAttribute="width" secondItem="gHV-Z4-1gn" secondAttribute="width" id="D1x-Kt-bVr"/>
@@ -387,4 +387,7 @@
             <point key="canvasLocation" x="1190.5" y="-249.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon-hamburger" width="22" height="16"/>
+    </resources>
 </document>

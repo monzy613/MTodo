@@ -50,11 +50,11 @@ class SettingViewController: UIViewController {
         
         if let password = passwordField.text {
             if password == "" {
-                AuthenticationSetter.showTextAlert(self, title: "New Password invalid", detail: "new password should not be empty", onPressCancel: {self.view.endEditing(true)})
+                MZToastView().configure((self.revealViewController().view)!, content: "password is empty", position: .Middle, length: .Short, lightMode: .Dark).show()
                 return
             }
         } else {
-            AuthenticationSetter.showTextAlert(self, title: "New Password invalid", detail: "new password should not be empty", onPressCancel: {self.view.endEditing(true)})
+            MZToastView().configure((self.revealViewController().view)!, content: "password is empty", position: .Middle, length: .Short, lightMode: .Dark).show()
             return
         }
         let password = passwordField.text ?? ""
@@ -75,7 +75,7 @@ class SettingViewController: UIViewController {
                                 self.passwordSetSuccess(password)
                             },
                             onFail: {
-                                AuthenticationSetter.showTextAlert(self, title: "Wrong Password", detail: "old password is incorrect", onPressCancel: {self.view.endEditing(true)})
+                                MZToastView().configure((self.revealViewController().view)!, content: "Wrong password", position: .Middle, length: .Short, lightMode: .Dark).show()
                             })
                     }
                 }
@@ -90,7 +90,7 @@ class SettingViewController: UIViewController {
         if touchIdSwitch.on == false {
             touchIdSwitch.setOn(self.touchIdSwitch.on, animated: false)
         }
-        AuthenticationSetter.showTextAlert(self, title: "Success", detail: "Password change success", onPressCancel: {self.view.endEditing(true)})
+        MZToastView().configure((self.revealViewController().view)!, content: "Password changed", position: .Middle, length: .Short, lightMode: .Dark).show()
     }
     
     
@@ -121,10 +121,10 @@ class SettingViewController: UIViewController {
                             AuthenticationSetter.showPasswordAlert(self,
                             onSuccess: {
                                 AuthenticationSetter.setAuthenticationSwitchUserDefault(false)
-                                AuthenticationSetter.showTextAlert(self, title: "TouchId Closed", detail: "touchid authentication closed", onPressCancel: {})
+                                MZToastView().configure((self.revealViewController().view)!, content: "Security closed", position: .Middle, length: .Short, lightMode: .Dark).show()
                             },
                             onFail: {
-                                AuthenticationSetter.showTextAlert(self, title: "Wrong Password", detail: "old password is incorrect", onPressCancel: {self.view.endEditing(true)})
+                                MZToastView().configure((self.revealViewController().view)!, content: "Wrong Password", position: .Middle, length: .Short, lightMode: .Dark).show()
                             })
                             break
                         default:
