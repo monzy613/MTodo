@@ -10,6 +10,7 @@ import UIKit
 import LocalAuthentication
 
 class ToDoListViewController: UITableViewController {
+    @IBOutlet var menuButton: UIBarButtonItem!
     
     var isAuthenticationSuccess = false
     
@@ -59,6 +60,11 @@ class ToDoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
         print("self.view.navigationView: \(self.navigationController?.view)")
         setAuthentication() {
             isSuccess, error in

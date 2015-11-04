@@ -18,7 +18,12 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
         print("switcher state: \(touchIdSwitch.on)")
         initSwitchState()
+        initGUI()
         // Do any additional setup after loading the view.
+    }
+    
+    func initGUI() {
+        changePasswordButton.layer.cornerRadius = changePasswordButton.frame.width / 10
     }
     
     func initSwitchState() {

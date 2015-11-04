@@ -10,6 +10,7 @@ import UIKit
 
 class TestTextViewViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
+    @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet var textField: UITextField!
     @IBOutlet var textView: UITextView!
     override func viewDidLoad() {
@@ -18,6 +19,12 @@ class TestTextViewViewController: UIViewController, UITextViewDelegate, UITextFi
         // Do any additional setup after loading the view.
         textField.delegate = self
         textView.delegate = self
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,6 +41,9 @@ class TestTextViewViewController: UIViewController, UITextViewDelegate, UITextFi
         print("textField did beginEditing")
     }
     
+    @IBAction func showMenu(sender: UIButton) {
+        performSegueWithIdentifier("sw_rear", sender: self)
+    }
     
     /*
     // MARK: - Navigation
