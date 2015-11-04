@@ -23,7 +23,7 @@ class ToDoListViewController: UITableViewController {
     private func reloadNoteList() {
         initList.removeAll()
         list.removeAll()
-        for note in uiRealm.objects(Note) {
+        for note in uiRealm.objects(Note).sorted("createdAt") {
             self.initList.append(note)
             self.list.append(note)
         }
@@ -150,19 +150,21 @@ class ToDoListViewController: UITableViewController {
         // Configure the cell...
         let index = list.count - indexPath.row - 1
         let title = list[index].title
-        let content = list[index].content
+//        let content = list[index].content
         if title == "" {
             cell.textLabel?.text = "no title"
         } else {
             cell.textLabel?.text = title
         }
+        cell.detailTextLabel!.text = "\(DateTool.dateStringWithNSDate(list[index].createdAt))"
         
+        /*
         if content == "" {
             cell.detailTextLabel!.text = "no content"
         } else {
             cell.detailTextLabel!.text = content
         }
-
+        */
         return cell
     }
 
@@ -207,6 +209,7 @@ class ToDoListViewController: UITableViewController {
             catch {
             }
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            stopRefreshing()
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    

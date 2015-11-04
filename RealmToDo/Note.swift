@@ -10,7 +10,7 @@ import RealmSwift
 
 class Note: Object {
     dynamic var title = ""
-    dynamic var createdAt = ""
+    dynamic var createdAt = NSDate()
     dynamic var content = ""
 // Specify properties to ignore (Realm won't persist these)
     

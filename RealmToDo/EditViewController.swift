@@ -31,8 +31,10 @@ class EditViewController: UIViewController {
         if contentTextView.text == "" && titleTextField.text == "" {
             return
         }
-        
-        let note = Note(value: [titleTextField.text, "now", contentTextView.text])
+        let note = Note()
+        note.title = titleTextField.text!
+        note.createdAt = NSDate()
+        note.content = contentTextView.text
         if contentTextView.text != "" && titleTextField.text == "" {
             note.title = ""
         } else if contentTextView.text == "" && titleTextField.text != ""{

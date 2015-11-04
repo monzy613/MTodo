@@ -1,20 +1,20 @@
 //
-//  SwitchTestViewController.swift
+//  TestViewController.swift
 //  RealmToDo
 //
-//  Created by Monzy on 15/11/3.
+//  Created by Monzy on 15/11/4.
 //  Copyright © 2015年 Monzy. All rights reserved.
 //
 
 import UIKit
 
-class SwitchTestViewController: UIViewController {
+class TestViewController: UIViewController {
 
-    @IBOutlet var switcher: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        uiRealm.objects(Note).sorted("createdAt")
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,9 +22,6 @@ class SwitchTestViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func buttonPressed(sender: UIButton) {
-        switcher.setOn(!switcher.on, animated: false)
-    }
 
     /*
     // MARK: - Navigation
