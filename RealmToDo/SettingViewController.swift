@@ -42,9 +42,6 @@ class SettingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func backToMain(sender: UIButton) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
 
     @IBAction func changePassword(sender: UIButton) {
         

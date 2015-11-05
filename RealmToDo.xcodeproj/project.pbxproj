@@ -22,9 +22,9 @@
 		184D97F41BE75B8800725BF0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97F31BE75B8800725BF0 /* SettingViewController.swift */; };
 		184D97F61BE7B64E00725BF0 /* AuthenticationSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97F51BE7B64E00725BF0 /* AuthenticationSetter.swift */; };
 		186269F21BE9A04200DF57D7 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186269F11BE9A04200DF57D7 /* SWRevealViewController.m */; };
-		18B31A8E1BE908DE004FF02A /* MZToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B31A8D1BE908DE004FF02A /* MZToastView.swift */; };
 		18EA05EA1BE9CD25005CD2D2 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA05E91BE9CD25005CD2D2 /* TestViewController.swift */; };
 		18EA05EC1BE9CFC7005CD2D2 /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA05EB1BE9CFC7005CD2D2 /* DateTool.swift */; };
+		18FCF2AC1BEB618800A79358 /* MZToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCF2AB1BEB618800A79358 /* MZToastView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,9 +59,9 @@
 		186269EF1BE9A03A00DF57D7 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		186269F01BE9A04200DF57D7 /* RealmToDo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RealmToDo-Bridging-Header.h"; sourceTree = "<group>"; };
 		186269F11BE9A04200DF57D7 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		18B31A8D1BE908DE004FF02A /* MZToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MZToastView.swift; sourceTree = "<group>"; };
 		18EA05E91BE9CD25005CD2D2 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		18EA05EB1BE9CFC7005CD2D2 /* DateTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTool.swift; sourceTree = "<group>"; };
+		18FCF2AB1BEB618800A79358 /* MZToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MZToastView.swift; sourceTree = "<group>"; };
 		28F38269FB035F03EDEDEED3 /* Pods-RealmToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmToDo.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmToDo/Pods-RealmToDo.release.xcconfig"; sourceTree = "<group>"; };
 		2C4C52FD1C13553F1D83DF5B /* Pods_RealmToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D2132CAEB356EB61251EA45 /* Pods-RealmToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmToDo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmToDo/Pods-RealmToDo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,8 +118,8 @@
 				184D97EF1BE7239300725BF0 /* ShowViewController.swift */,
 				184D97F31BE75B8800725BF0 /* SettingViewController.swift */,
 				184D97F51BE7B64E00725BF0 /* AuthenticationSetter.swift */,
+				18FCF2AB1BEB618800A79358 /* MZToastView.swift */,
 				18EA05EB1BE9CFC7005CD2D2 /* DateTool.swift */,
-				18B31A8D1BE908DE004FF02A /* MZToastView.swift */,
 				18EA05E91BE9CD25005CD2D2 /* TestViewController.swift */,
 				181278361BE6EE67002B8520 /* Main.storyboard */,
 				184D97F71BE7BDC500725BF0 /* MyPlayground.playground */,
@@ -335,8 +335,8 @@
 				18EA05EA1BE9CD25005CD2D2 /* TestViewController.swift in Sources */,
 				184D97E81BE70F5C00725BF0 /* EditViewController.swift in Sources */,
 				1812783B1BE6EE67002B8520 /* RealmToDo.xcdatamodeld in Sources */,
+				18FCF2AC1BEB618800A79358 /* MZToastView.swift in Sources */,
 				18EA05EC1BE9CFC7005CD2D2 /* DateTool.swift in Sources */,
-				18B31A8E1BE908DE004FF02A /* MZToastView.swift in Sources */,
 				184D97F61BE7B64E00725BF0 /* AuthenticationSetter.swift in Sources */,
 				1819EC631BE70A2B0068EE84 /* ToDoListViewController.swift in Sources */,
 				184D97F41BE75B8800725BF0 /* SettingViewController.swift in Sources */,

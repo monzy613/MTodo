@@ -114,6 +114,10 @@ class EditViewController: UIViewController, UITextViewDelegate {
         scrollToCursor()
     }
     
+    func textViewDidChangeSelection(textView: UITextView) {
+        scrollToCursor()
+    }
+    
     //Mark keyboard show and hide
     func keyboardWillShow(notification: NSNotification) {
         let userinfo = notification.userInfo
@@ -145,6 +149,7 @@ class EditViewController: UIViewController, UITextViewDelegate {
     
     
     func keyboardWillHide() {
+        moveDownDismissKeyboardButton()
         print("keyboardWillHide")
         //contentTextView.setContentOffset(CGPoint(x: 0, y: contentViewOffset), animated: true)
         limitY! = (dismissKeyboardButton?.frame.origin.y)!

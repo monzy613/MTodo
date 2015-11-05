@@ -52,7 +52,7 @@ class MZToastView: UIView {
         super.init(frame: frame)
     }
     
-
+/*
     func configure(superView: UIView, content: String, position: MZToastPosition, length: MZToastLength, lightMode: MZDisplayMode) -> MZToastView {
         superView.addSubview(self)
         mzPosition = position
@@ -95,8 +95,8 @@ class MZToastView: UIView {
         }
         return self
     }
-
-/*
+*/
+    
     func configure(superView: UIView, content: String, position: MZToastPosition, length: MZToastLength, lightMode: MZDisplayMode) -> MZToastView {
         superView.addSubview(self)
         mzPosition = position
@@ -137,7 +137,7 @@ class MZToastView: UIView {
         self.frame = frame
         return configLabel(content, lightMode: lightMode)
     }
-*/
+    
     
     private func configLabel(content: String, lightMode: MZDisplayMode) -> MZToastView {
         self.addSubview(contentLabel)
@@ -186,6 +186,17 @@ class MZToastView: UIView {
         })
     }
     
+    func dismissSelf(withDuration duration: NSTimeInterval) {
+        UIView.animateWithDuration(duration, animations: {
+            self.alpha = 0.0
+            }) {
+                complete in
+                if complete {
+                    self.removeFromSuperview()
+                }
+        }
+    }
+
     func dismissSelf() {
         UIView.animateWithDuration(dismissDuration, animations: {
             self.alpha = 0.0
@@ -197,8 +208,14 @@ class MZToastView: UIView {
         }
     }
 
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        print("touchesBegan")
+        dismissSelf(withDuration: dismissDuration / 3)
     }
     
 }

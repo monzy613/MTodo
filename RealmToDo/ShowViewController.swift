@@ -37,6 +37,7 @@ class ShowViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
     }
     
     override func viewWillDisappear(animated: Bool) {
+        moveDownDismissKeyboardButton()
         if isModified == false {
             print("note not modified")
             return
@@ -118,6 +119,10 @@ class ShowViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
     func textViewDidChange(textView: UITextView) {
         scrollToCursor()
     }
+    
+    func textViewDidChangeSelection(textView: UITextView) {
+        scrollToCursor()
+    }
 
     //Mark keyboard show and hide
     func keyboardWillShow(notification: NSNotification) {
@@ -166,6 +171,9 @@ class ShowViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
     
     
     func scrollToCursor() {
+        if limitY == nil {
+            return
+        }
         if contentTextView.selectedRange.location != NSNotFound {
             let cursorY = getCursorY()
             if cursorY > limitY! {

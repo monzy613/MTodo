@@ -111,11 +111,6 @@ class ToDoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
         self.refreshControl?.addTarget(self, action: "setAuthentication", forControlEvents: .ValueChanged)
         setAuthentication()
         print(NSSearchPathForDirectoriesInDomains(.DocumentationDirectory, .UserDomainMask, true)[0])
@@ -124,6 +119,20 @@ class ToDoListViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         reloadNoteList()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        print("viewWillLayoutSubviews")
+        initSideMenu()
+    }
+    
+    func initSideMenu() {
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            self.revealViewController().rearViewRevealWidth = self.view.frame.width / 2
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
     
 
