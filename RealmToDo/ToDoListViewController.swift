@@ -72,7 +72,7 @@ class ToDoListViewController: UITableViewController {
                                 MZToastView().configure((self.revealViewController().view)!, content: "Wrong finderprint", position: .Middle, length: .Short, lightMode: .Dark).show()
                                 break
                             case .UserFallback, .TouchIDNotAvailable, .TouchIDNotEnrolled:
-                                AuthenticationSetter.showPasswordAlert(self,
+                                AuthenticationSetter.showPasswordAlert("Login", message: "Enter password", rootViewController: self,
                                     onSuccess: {
                                         MZToastView().configure((self.revealViewController().view)!, content: "success", position: .Middle, length: .Short, lightMode: .Dark).show()
                                         self.isAuthenticationSuccess = true
@@ -81,7 +81,8 @@ class ToDoListViewController: UITableViewController {
                                     },
                                     onFail: {
                                         MZToastView().configure((self.revealViewController().view)!, content: "Wrong password", position: .Middle, length: .Short, lightMode: .Dark).show()
-                                    }
+                                    },
+                                    onCancel: nil
                                 )
                                 break
                             default:

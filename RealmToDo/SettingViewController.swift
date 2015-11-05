@@ -67,13 +67,15 @@ class SettingViewController: UIViewController {
                     }
                 } else {
                     dispatch_async(dispatch_get_main_queue()) {
-                        AuthenticationSetter.showPasswordAlert(self,
+                        AuthenticationSetter.showPasswordAlert("Changing Password", message: "Enter old password", rootViewController: self,
                             onSuccess: {
                                 self.passwordSetSuccess(password)
                             },
                             onFail: {
                                 MZToastView().configure((self.revealViewController().view)!, content: "Wrong password", position: .Middle, length: .Short, lightMode: .Dark).show()
-                            })
+                            },
+                            onCancel: nil
+                        )
                     }
                 }
             }
@@ -112,17 +114,22 @@ class SettingViewController: UIViewController {
                             break
                         case .UserCancel:
                             print("User Cancel")
-                            self.touchIdSwitch.setOn(self.touchIdSwitch.on, animated: false)
+                            self.touchIdSwitch.setOn(true, animated: false)
                             break
                         case .UserFallback, .TouchIDNotAvailable, .TouchIDNotEnrolled:
-                            AuthenticationSetter.showPasswordAlert(self,
-                            onSuccess: {
+                            AuthenticationSetter.showPasswordAlert("Closing Secure", message: "please enter password", rootViewController: self,
+                                onSuccess: {
                                 AuthenticationSetter.setAuthenticationSwitchUserDefault(false)
                                 MZToastView().configure((self.revealViewController().view)!, content: "Security closed", position: .Middle, length: .Short, lightMode: .Dark).show()
-                            },
-                            onFail: {
+                                },
+                                onFail: {
                                 MZToastView().configure((self.revealViewController().view)!, content: "Wrong Password", position: .Middle, length: .Short, lightMode: .Dark).show()
-                            })
+                                self.touchIdSwitch.setOn(true, animated: true)
+                                },
+                                onCancel: {
+                                self.touchIdSwitch.setOn(true, animated: true)
+                                }
+                            )
                             break
                         default:
                             sender.setOn(true, animated: true)
@@ -134,7 +141,17 @@ class SettingViewController: UIViewController {
                 }
             }
         } else {
-            AuthenticationSetter.setAuthenticationSwitchUserDefault(true)
+            if AuthenticationSetter.hasPassword() {
+                AuthenticationSetter.setAuthenticationSwitchUserDefault(true)
+            } else {
+                AuthenticationSetter.showPasswordAlert("Set Password", message: "Enter Password", rootViewController: self, onSuccess: {
+                    AuthenticationSetter.setAuthenticationSwitchUserDefault(true)
+                    MZToastView().configure((self.revealViewController().view)!, content: "Password set success", position: .Middle, length: .Short, lightMode: .Dark).show()
+                    }, onFail: nil,
+                    onCancel: {
+                        self.touchIdSwitch.setOn(false, animated: true)
+                })
+            }
         }
         self.view.endEditing(true)
     }

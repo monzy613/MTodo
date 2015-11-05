@@ -33,35 +33,50 @@ class AuthenticationSetter: NSObject {
         userDefault.setValue(password, forKey: "Password")
     }
     
+    class func hasPassword() -> Bool {
+        if userDefault.stringForKey("Password") == nil {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     class func authenticateByPassword(password: String, onSuccess: ((Void) -> Void)?, onFail: ((Void) -> Void)?) {
         print("authenticateByPassword")
         if userDefault.stringForKey("Password") == nil {
-            print("No Password in UserDefault")
-            onFail
+            setPassword(password)
+            if onSuccess != nil {
+                onSuccess!()
+            }
         } else {
             if let storedPassword = userDefault.stringForKey("Password") {
                 if storedPassword == password {
                     print("[authenticateByPassword] success")
-                    onSuccess!()
+                    if onSuccess != nil {
+                        onSuccess!()
+                    }
                 } else {
                     print("[authenticateByPassword] failed \(storedPassword)")
-                    onFail!()
+                    if onFail != nil {
+                        onFail!()
+                    }
                 }
             }
         }
     }
     
-    class func showPasswordAlert(rootViewController: UIViewController, onSuccess: ((Void) -> Void)?, onFail: ((Void) -> Void)?) {
-        let passwordAlertController = UIAlertController(title: "Password", message: "Enter Password", preferredStyle: .Alert)
+    class func showPasswordAlert(title: String, message: String, rootViewController: UIViewController, onSuccess: ((Void) -> Void)?, onFail: ((Void) -> Void)?, onCancel: ((Void) -> Void)?) {
+        let passwordAlertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         passwordAlertController.addTextFieldWithConfigurationHandler() {
             textField in
             textField.secureTextEntry = true
         }
         passwordAlertController.addAction(UIAlertAction(title: "Ok", style: .Default) {
             alertAction in
+            rootViewController.view.endEditing(true)
             let password = passwordAlertController.textFields!.first?.text ?? ""
             if password == "" {
-                showPasswordAlert(rootViewController, onSuccess: onSuccess, onFail: onFail)
+                showPasswordAlert(title, message: message, rootViewController: rootViewController, onSuccess: onSuccess, onFail: onFail, onCancel: onCancel)
             } else {
                 print("authenticating password")
                 authenticateByPassword(password, onSuccess: onSuccess, onFail: onFail)
@@ -69,6 +84,10 @@ class AuthenticationSetter: NSObject {
             })
         passwordAlertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) {
             alertAction in
+            rootViewController.view.endEditing(true)
+            if onCancel != nil {
+                onCancel!()
+            }
             })
         rootViewController.presentViewController(passwordAlertController, animated: true, completion: nil)
     }
