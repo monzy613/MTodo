@@ -150,7 +150,6 @@ class ToDoListViewController: UITableViewController {
         // Configure the cell...
         let index = list.count - indexPath.row - 1
         let title = list[index].title
-//        let content = list[index].content
         if title == "" {
             cell.textLabel?.text = "no title"
         } else {
@@ -159,6 +158,7 @@ class ToDoListViewController: UITableViewController {
         cell.detailTextLabel!.text = "\(DateTool.dateStringWithNSDate(list[index].createdAt))"
         
         /*
+        let content = list[index].content
         if content == "" {
             cell.detailTextLabel!.text = "no content"
         } else {
@@ -202,8 +202,9 @@ class ToDoListViewController: UITableViewController {
             // Delete the row from the data source
             do {
                 try uiRealm.write() {
-                    uiRealm.delete(self.list[indexPath.row])
-                    self.list.removeAtIndex(indexPath.row)
+                    let index = self.list.count - indexPath.row - 1
+                    uiRealm.delete(self.list[index])
+                    self.list.removeAtIndex(index)
                 }
             }
             catch {

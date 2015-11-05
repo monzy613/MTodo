@@ -19,3 +19,4 @@ LAError.UserFallback.rawValue
 
 var touchIdSwitch = UISwitch()
 touchIdSwitch.setOn(true, animated: true)
+UIButtonType.Custom.rawValue
