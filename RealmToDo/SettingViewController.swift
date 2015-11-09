@@ -81,6 +81,7 @@ class SettingViewController: UIViewController {
             }
         }
         self.view.endEditing(true)
+        passwordField.text = ""
     }
     
     private func passwordSetSuccess(password: String) {
@@ -100,21 +101,18 @@ class SettingViewController: UIViewController {
                 isSuccess, error in
                 if isSuccess == true {
                     AuthenticationSetter.setAuthenticationSwitchUserDefault(false)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        MZToastView().configure((self.revealViewController().view)!, content: "Security closed", position: .Middle, length: .Short, lightMode: .Dark).show()
+                    })
                 } else {
                     if let laError = error as? LAError {
                         print("error happened in authenticating: \(laError)")
                         switch laError {
-                        case .AppCancel:
-                            print("App Cancel")
-                            self.touchIdSwitch.setOn(true, animated: true)
-                            break
-                        case .SystemCancel:
-                            print("System Cancel")
-                            self.touchIdSwitch.setOn(true, animated: true)
-                            break
-                        case .UserCancel:
-                            print("User Cancel")
-                            self.touchIdSwitch.setOn(true, animated: false)
+                        case .UserCancel, .SystemCancel, .AppCancel:
+                            print("LAError: \(laError.rawValue)")
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.touchIdSwitch.setOn(true, animated: true)
+                            })
                             break
                         case .UserFallback, .TouchIDNotAvailable, .TouchIDNotEnrolled:
                             AuthenticationSetter.showPasswordAlert("Closing Secure", message: "please enter password", rootViewController: self,

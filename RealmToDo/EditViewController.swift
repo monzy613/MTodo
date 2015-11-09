@@ -111,7 +111,7 @@ class EditViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidChange(textView: UITextView) {
-        scrollToCursor()
+        //scrollToCursor()
     }
     
     func textViewDidChangeSelection(textView: UITextView) {
@@ -188,10 +188,12 @@ class EditViewController: UIViewController, UITextViewDelegate {
     
     
     func getCursorY() -> CGFloat {
-        var range = NSRange()
+        let contentString = contentTextView.text as NSString
+        var range = NSMakeRange(contentString.length, 0)
         range.location = contentTextView.selectedRange.location
-        range.length = contentTextView.text.characters.count - range.location
-        let str = (contentTextView.text as NSString).stringByReplacingCharactersInRange(range, withString: "") as NSString
+        range.length = contentString.length - range.location
+        print("range: \(range)")
+        let str = contentString.stringByReplacingCharactersInRange(range, withString: "") as NSString
         let size = str.boundingRectWithSize(contentTextView.bounds.size, options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName: contentTextView.font!], context: nil)
         return size.height + contentTextView.frame.origin.y
     }
