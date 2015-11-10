@@ -24,6 +24,8 @@ class ShowViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
     
     @IBOutlet var contentTextView: UITextView!
     @IBOutlet var titleTextField: UITextField!
+    var doneButton: MZFloatButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = note.title
@@ -33,6 +35,7 @@ class ShowViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
         contentTextView.text = note.content
         titleTextField.text = note.title
         configAutoScrolling()
+        configDoneButton()
         // Do any additional setup after loading the view.
     }
     
@@ -56,6 +59,17 @@ class ShowViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func configDoneButton() {
+        doneButton = MZFloatButton().configure(self.view, _percent: 0.15, _image: UIImage(named: "done"), _title: nil, _backgroundColor: nil, _toggleDuration: 0.1)
+        doneButton?.toggle()
+        doneButton?.addTarget(self, action: "dismissViewController", forControlEvents: .TouchUpInside)
+    }
+    
+    func dismissViewController() {
+        doneButton?.hide()
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     override func didReceiveMemoryWarning() {

@@ -15,6 +15,7 @@
 		181278401BE6EE67002B8520 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1812783E1BE6EE67002B8520 /* LaunchScreen.storyboard */; };
 		1812784B1BE6EE67002B8520 /* RealmToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812784A1BE6EE67002B8520 /* RealmToDoUITests.swift */; };
 		1819EC631BE70A2B0068EE84 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819EC621BE70A2B0068EE84 /* ToDoListViewController.swift */; };
+		181C30311BF16B8D0054DEF6 /* MZFloatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C30301BF16B8D0054DEF6 /* MZFloatButton.swift */; };
 		184D97E81BE70F5C00725BF0 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97E71BE70F5C00725BF0 /* EditViewController.swift */; };
 		184D97EA1BE7102100725BF0 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97E91BE7102100725BF0 /* Note.swift */; };
 		184D97F01BE7239300725BF0 /* ShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97EF1BE7239300725BF0 /* ShowViewController.swift */; };
@@ -49,6 +50,7 @@
 		1812784A1BE6EE67002B8520 /* RealmToDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmToDoUITests.swift; sourceTree = "<group>"; };
 		1812784C1BE6EE67002B8520 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1819EC621BE70A2B0068EE84 /* ToDoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
+		181C30301BF16B8D0054DEF6 /* MZFloatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MZFloatButton.swift; sourceTree = "<group>"; };
 		184D97E71BE70F5C00725BF0 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		184D97E91BE7102100725BF0 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		184D97EF1BE7239300725BF0 /* ShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				184D97F31BE75B8800725BF0 /* SettingViewController.swift */,
 				184D97F51BE7B64E00725BF0 /* AuthenticationSetter.swift */,
 				18FCF2AB1BEB618800A79358 /* MZToastView.swift */,
+				181C30301BF16B8D0054DEF6 /* MZFloatButton.swift */,
 				18EA05EB1BE9CFC7005CD2D2 /* DateTool.swift */,
 				18EA05E91BE9CD25005CD2D2 /* TestViewController.swift */,
 				181278361BE6EE67002B8520 /* Main.storyboard */,
@@ -330,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				181C30311BF16B8D0054DEF6 /* MZFloatButton.swift in Sources */,
 				184D97EA1BE7102100725BF0 /* Note.swift in Sources */,
 				184D97F01BE7239300725BF0 /* ShowViewController.swift in Sources */,
 				18EA05EA1BE9CD25005CD2D2 /* TestViewController.swift in Sources */,

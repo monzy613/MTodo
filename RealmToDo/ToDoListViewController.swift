@@ -11,6 +11,7 @@ import LocalAuthentication
 
 class ToDoListViewController: UITableViewController {
     @IBOutlet var menuButton: UIBarButtonItem!
+    var fButton: MZFloatButton?
     
     var isAuthenticationSuccess = false
     
@@ -115,15 +116,20 @@ class ToDoListViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: "setAuthentication", forControlEvents: .ValueChanged)
         setAuthentication()
         print(NSSearchPathForDirectoriesInDomains(.DocumentationDirectory, .UserDomainMask, true)[0])
+        initFloatButton()
     }
 
     
     override func viewWillAppear(animated: Bool) {
         reloadNoteList()
+        fButton?.show()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        fButton?.hide()
     }
     
     override func viewWillLayoutSubviews() {
-        print("viewWillLayoutSubviews")
         initSideMenu()
     }
     
@@ -136,12 +142,30 @@ class ToDoListViewController: UITableViewController {
         }
     }
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func initFloatButton() {
+        fButton = MZFloatButton().configure((self.navigationController?.view)!, _percent: 0.15, _image: UIImage(named: "add_dark_grey"), _title: nil, _backgroundColor: nil, _toggleDuration: 0.1)
+        fButton?.addTarget(self, action: "addNewNote", forControlEvents: .TouchUpInside)
+        fButton?.toggle()
     }
-
+    
+    func addNewNote() {
+        performSegueWithIdentifier("NewNoteSegue", sender: self)
+    }
+    
+    
+    override func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print("endScroll: \(velocity)")
+        if abs(velocity.y) > abs(velocity.x) {
+            if velocity.y < 0 {
+                fButton?.hide()
+            } else {
+                fButton?.show()
+            }
+        }
+    }
+    
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -191,6 +215,9 @@ class ToDoListViewController: UITableViewController {
                 case "ShowNoteSegue":
                     let destViewController = segue.destinationViewController as! ShowViewController
                     destViewController.note = currentNote
+                break
+                case "NewNoteSegue":
+                    print("NewNoteSegue")
                 break
             default: break
             }

@@ -13,21 +13,27 @@ class EditViewController: UIViewController, UITextViewDelegate {
     //Mark outlets
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var contentTextView: UITextView!
+    var doneButton: MZFloatButton?
     let offset_for_keyboard: CGFloat = 80.0
     var dismissKeyboardButton: UIButton?
     var keyboardHeight: CGFloat = 250
     var originalTextViewFrame: CGRect?
     var limitY: CGFloat?
     var contentViewOffset: CGFloat = 0
+    var lineHeightOffset: CGFloat = 2
     var visibleTextViewHeight: CGFloat?
+    var lineHeight: CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         contentTextView.delegate = self
         configAutoScrolling()
+        configDoneButton()
     }
     
     func configAutoScrolling() {
+        lineHeight = (contentTextView.font?.lineHeight)! + lineHeightOffset
         originalTextViewFrame = contentTextView.frame
         configDismissKeyboardButton()
     }
@@ -45,6 +51,17 @@ class EditViewController: UIViewController, UITextViewDelegate {
         dismissKeyboardButton?.addTarget(self, action: "moveDownDismissKeyboardButton", forControlEvents: .TouchUpInside)
         dismissKeyboardButton?.alpha = 0
         self.view.addSubview(dismissKeyboardButton!)
+    }
+    
+    func configDoneButton() {
+        doneButton = MZFloatButton().configure(self.view, _percent: 0.15, _image: UIImage(named: "done"), _title: nil, _backgroundColor: nil, _toggleDuration: 0.1)
+        doneButton?.toggle()
+        doneButton?.addTarget(self, action: "dismissViewController", forControlEvents: .TouchUpInside)
+    }
+    
+    func dismissViewController() {
+        doneButton?.hide()
+        self.dismissViewControllerAnimated(true, completion: {})
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,6 +135,10 @@ class EditViewController: UIViewController, UITextViewDelegate {
         scrollToCursor()
     }
     
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        print("scrollViewWillBeginDragging")
+    }
+    
     //Mark keyboard show and hide
     func keyboardWillShow(notification: NSNotification) {
         let userinfo = notification.userInfo
@@ -132,12 +153,11 @@ class EditViewController: UIViewController, UITextViewDelegate {
         
         if visibleTextViewHeight == nil {
             let height = (dismissKeyboardButton?.frame.origin.y)!
-            let lineHeight = contentTextView.font?.lineHeight
             visibleTextViewHeight = 0
             while true {
-                visibleTextViewHeight! += lineHeight!
+                visibleTextViewHeight! += lineHeight
                 if visibleTextViewHeight > height {
-                    visibleTextViewHeight! -= lineHeight!
+                    visibleTextViewHeight! -= lineHeight
                     break
                 }
             }
@@ -168,24 +188,28 @@ class EditViewController: UIViewController, UITextViewDelegate {
     func scrollToCursor() {
         if contentTextView.selectedRange.location != NSNotFound {
             let cursorY = getCursorY()
-            if cursorY > limitY! {
-                let lineHeight = (contentTextView.font?.lineHeight)!
-                redirectLimitY(cursorY, lineHeight: lineHeight)
-                contentViewOffset = cursorY - visibleTextViewHeight!
-                print("cursorY: \(cursorY), limitY: \(limitY!), contentTextViewOffset: \(contentViewOffset)")
-                self.contentTextView.setContentOffset(CGPoint(x: 0, y: self.contentViewOffset), animated: false)
+//            if cursorY > limitY! {
+            redirectLimitY(cursorY)
+            contentViewOffset = cursorY - visibleTextViewHeight!
+            if contentViewOffset <= 0 {
+                return
             }
+            let superFrame = contentTextView.frame
+            let frame = CGRect(x: superFrame.origin.x, y: superFrame.origin.y, width: superFrame.width, height: superFrame.height + lineHeight)
+            print("cursorY: \(cursorY), limitY: \(limitY!), contentTextViewOffset: \(contentViewOffset), lineHeight: \(lineHeight)")
+            contentTextView.frame = frame
+            contentTextView.setContentOffset(CGPoint(x: 0, y: self.contentViewOffset), animated: false)
+//            }
         }
     }
     
-    func redirectLimitY(cursorY: CGFloat, lineHeight: CGFloat) {
+    func redirectLimitY(cursorY: CGFloat) {
         if limitY != nil {
             while limitY < cursorY {
                 limitY! += lineHeight
             }
         }
     }
-    
     
     func getCursorY() -> CGFloat {
         let contentString = contentTextView.text as NSString
@@ -195,7 +219,9 @@ class EditViewController: UIViewController, UITextViewDelegate {
         print("range: \(range)")
         let str = contentString.stringByReplacingCharactersInRange(range, withString: "") as NSString
         let size = str.boundingRectWithSize(contentTextView.bounds.size, options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName: contentTextView.font!], context: nil)
-        return size.height + contentTextView.frame.origin.y
+        let cursorHeight = size.height + contentTextView.frame.origin.y
+        print("size.height: \(size.height)")
+        return cursorHeight
     }
     
     
