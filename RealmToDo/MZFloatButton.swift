@@ -11,6 +11,7 @@ import UIKit
 
 class MZFloatButton: UIButton {
     
+    var cornerRadiusPercent: CGFloat = 0.5
     var offset: CGFloat = 20
     var isShow = false
     var toggleDuration: NSTimeInterval = 0.25
@@ -34,7 +35,7 @@ class MZFloatButton: UIButton {
         toggleDuration = _toggleDuration ?? 0.25
         let showWidth = superFrame.width * percent
         let hideWidth = showWidth * 2 / 3
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = hideWidth * cornerRadiusPercent
         self.clipsToBounds = true
         let showX = (superFrame.width - showWidth) / 2
         let showY = superFrame.height - showWidth - offset
@@ -54,6 +55,7 @@ class MZFloatButton: UIButton {
         }
         UIView.animateWithDuration(toggleDuration, animations: {
             self.frame = self.showFrame
+            self.layer.cornerRadius = self.showFrame.width * self.cornerRadiusPercent
             },
             completion: {
                 complete in
@@ -68,6 +70,7 @@ class MZFloatButton: UIButton {
         }
         UIView.animateWithDuration(toggleDuration, animations: {
             self.frame = self.hideFrame
+            self.layer.cornerRadius = self.hideFrame.width * self.cornerRadiusPercent
             },
             completion: {
                 complete in
