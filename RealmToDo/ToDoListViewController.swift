@@ -118,6 +118,7 @@ class ToDoListViewController: UITableViewController {
         setAuthentication()
         print(NSSearchPathForDirectoriesInDomains(.DocumentationDirectory, .UserDomainMask, true)[0])
         initFloatButton()
+        self.tableView.tableFooterView = UIView()
     }
     
     func register3DTouch() {
