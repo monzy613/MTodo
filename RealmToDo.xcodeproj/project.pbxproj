@@ -16,6 +16,7 @@
 		1812784B1BE6EE67002B8520 /* RealmToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812784A1BE6EE67002B8520 /* RealmToDoUITests.swift */; };
 		1819EC631BE70A2B0068EE84 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819EC621BE70A2B0068EE84 /* ToDoListViewController.swift */; };
 		181C30311BF16B8D0054DEF6 /* MZFloatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C30301BF16B8D0054DEF6 /* MZFloatButton.swift */; };
+		1823F06F1BF86DC7000E02FE /* ToDoListViewController+UIViewControllerPreviewingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1823F06E1BF86DC7000E02FE /* ToDoListViewController+UIViewControllerPreviewingDelegate.swift */; };
 		184D97E81BE70F5C00725BF0 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97E71BE70F5C00725BF0 /* EditViewController.swift */; };
 		184D97EA1BE7102100725BF0 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97E91BE7102100725BF0 /* Note.swift */; };
 		184D97F01BE7239300725BF0 /* ShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D97EF1BE7239300725BF0 /* ShowViewController.swift */; };
@@ -51,6 +52,7 @@
 		1812784C1BE6EE67002B8520 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1819EC621BE70A2B0068EE84 /* ToDoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		181C30301BF16B8D0054DEF6 /* MZFloatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MZFloatButton.swift; sourceTree = "<group>"; };
+		1823F06E1BF86DC7000E02FE /* ToDoListViewController+UIViewControllerPreviewingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ToDoListViewController+UIViewControllerPreviewingDelegate.swift"; sourceTree = "<group>"; };
 		184D97E71BE70F5C00725BF0 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		184D97E91BE7102100725BF0 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		184D97EF1BE7239300725BF0 /* ShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				184D97E41BE70B9600725BF0 /* Model */,
 				181278321BE6EE67002B8520 /* AppDelegate.swift */,
 				1819EC621BE70A2B0068EE84 /* ToDoListViewController.swift */,
+				1823F06E1BF86DC7000E02FE /* ToDoListViewController+UIViewControllerPreviewingDelegate.swift */,
 				184D97E71BE70F5C00725BF0 /* EditViewController.swift */,
 				184D97EF1BE7239300725BF0 /* ShowViewController.swift */,
 				184D97F31BE75B8800725BF0 /* SettingViewController.swift */,
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1823F06F1BF86DC7000E02FE /* ToDoListViewController+UIViewControllerPreviewingDelegate.swift in Sources */,
 				181C30311BF16B8D0054DEF6 /* MZFloatButton.swift in Sources */,
 				184D97EA1BE7102100725BF0 /* Note.swift in Sources */,
 				184D97F01BE7239300725BF0 /* ShowViewController.swift in Sources */,
@@ -475,7 +479,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = RealmToDo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Monzy.Zhang.RealmToDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -492,7 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = RealmToDo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Monzy.Zhang.RealmToDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

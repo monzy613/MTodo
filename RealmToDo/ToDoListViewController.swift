@@ -114,9 +114,18 @@ class ToDoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.refreshControl?.addTarget(self, action: "setAuthentication", forControlEvents: .ValueChanged)
+        register3DTouch()
         setAuthentication()
         print(NSSearchPathForDirectoriesInDomains(.DocumentationDirectory, .UserDomainMask, true)[0])
         initFloatButton()
+    }
+    
+    func register3DTouch() {
+        if traitCollection.forceTouchCapability == .Available {
+            registerForPreviewingWithDelegate(self, sourceView: self.view)
+        } else {
+            print("3d touch not available")
+        }
     }
 
     
@@ -182,6 +191,7 @@ class ToDoListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath)
         
         // Configure the cell...
+        
         let index = list.count - indexPath.row - 1
         let title = list[index].title
         if title == "" {
@@ -191,14 +201,6 @@ class ToDoListViewController: UITableViewController {
         }
         cell.detailTextLabel!.text = "\(DateTool.dateStringWithNSDate(list[index].createdAt))"
         
-        /*
-        let content = list[index].content
-        if content == "" {
-            cell.detailTextLabel!.text = "no content"
-        } else {
-            cell.detailTextLabel!.text = content
-        }
-        */
         return cell
     }
 
@@ -223,7 +225,7 @@ class ToDoListViewController: UITableViewController {
             }
         }
     }
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

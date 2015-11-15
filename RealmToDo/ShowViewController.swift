@@ -24,6 +24,20 @@ class ShowViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
     
     @IBOutlet var contentTextView: UITextView!
     @IBOutlet var titleTextField: UITextField!
+    
+    lazy var previewActions: [UIPreviewActionItem] = {
+        let editAction = UIPreviewAction(title: "Edit", style: .Default) {
+            editAction, viewController in
+            
+        }
+        
+        let deleteAction = UIPreviewAction(title: "Delete", style: .Destructive) {
+            cancelAction, viewController in
+        }
+        
+        return [editAction, deleteAction]
+    }()
+    
     var doneButton: MZFloatButton?
     
     override func viewDidLoad() {
@@ -218,5 +232,8 @@ class ShowViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
         return size.height + contentTextView.frame.origin.y
     }
     
+    override func previewActionItems() -> [UIPreviewActionItem] {
+        return previewActions
+    }
     
 }
